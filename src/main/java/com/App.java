@@ -1,6 +1,9 @@
 package com;
 
-import com.yangzhao.juc.LazySingle;
+import com.yangzhao.juc.MyThread3;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 /**
  * Hello world!
@@ -8,8 +11,7 @@ import com.yangzhao.juc.LazySingle;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) throws ExecutionException, InterruptedException {
 
 //        MyThread MyThread = new MyThread();
 //        MyThread.start();
@@ -26,13 +28,13 @@ public class App
 //            System.out.println(Thread.currentThread().getName());
 //        },"yangzhapo").start();
 
-        System.out.println( "Hello World!" );
-
-        for(int i=0;i<1000;i++){
-            new Thread(()->{
-                LazySingle single = LazySingle.getSingle();
-            },i+"").start();
-        }
+//        System.out.println( "Hello World!" );
+//
+//        for(int i=0;i<1000;i++){
+//            new Thread(()->{
+//                LazySingle single = LazySingle.getSingle();
+//            },i+"").start();
+//        }
 
 //        for(int i=0;i<1000;i++){
 //            new Thread(()->{
@@ -41,8 +43,10 @@ public class App
 //        }
 
 
-
-
+        FutureTask<String> task = new FutureTask<>(new MyThread3());
+        Thread thread3 = new Thread(task);
+        thread3.start();
+        System.out.println(task.get());
 
     }
 }
