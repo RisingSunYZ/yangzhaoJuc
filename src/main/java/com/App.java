@@ -46,7 +46,13 @@ public class App
         FutureTask<String> task = new FutureTask<>(new MyThread3());
         Thread thread3 = new Thread(task);
         thread3.start();
-        System.out.println(task.get());
+
+        System.out.println(task.get());//最好将FutureTask的get操作放在最后，因为get操作会阻塞其他线程
+
+        System.out.println("=================1===================");
+
+
+
 
     }
 }

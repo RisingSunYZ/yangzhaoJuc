@@ -1,6 +1,7 @@
 package com.yangzhao.juc;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Description:与Runnable的区别：
@@ -16,6 +17,10 @@ public class MyThread3 implements Callable<String> {
     @Override
     public String call() throws Exception {
         System.out.println("sout==================");
+
+        TimeUnit.SECONDS.sleep(3);
+
+
         return "helloWorld";
     }
 }
