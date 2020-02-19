@@ -34,6 +34,12 @@ import java.util.concurrent.*;
  threadFactory	创建线程的工厂类
  handler	等待队列满后的拒绝策略
  **/
+
+
+/**
+ 自定义线程池参数选择
+ 对于CPU密集型任务，最大线程数是CPU线程数+1。对于IO密集型任务，尽量多配点，可以是CPU线程数*2，或者CPU线程数/(1-阻塞系数)。 (阻塞系数在0.8-0.9之间)
+ **/
 public class ExecutorTest {
 
     public static void main(String[] args) throws Exception{
