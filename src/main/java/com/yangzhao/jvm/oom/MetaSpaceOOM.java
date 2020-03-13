@@ -18,22 +18,32 @@ import java.lang.reflect.Proxy;
 public class MetaSpaceOOM {
 
     public static void main(String[] args) {
-        testJdk();
+//        testJdk();
         testCglib();
 
     }
+    static class Test{}
 
     private static void testCglib() {
-
+        int i=0;
        while(true){
-           UserManagerImpl UserManagerImpl = new UserManagerImpl();
-           CglibProxy CglibProxy = new CglibProxy(UserManagerImpl);
 
-           Enhancer Enhancer = new Enhancer();
-           Enhancer.setSuperclass(UserManagerImpl.class);
-           Enhancer.setCallback(CglibProxy);
-           UserManagerImpl o = (UserManagerImpl)Enhancer.create();
-           UserManagerImpl.add();
+           try{
+               i++;
+               CglibProxy CglibProxy = new CglibProxy(Test.class);
+
+               Enhancer Enhancer = new Enhancer();
+               Enhancer.setSuperclass(UserManagerImpl.class);
+               Enhancer.setCallback(CglibProxy);
+               Enhancer.create();
+           }catch (Exception e){
+               System.out.println("第"+i+"次出现异常");
+               e.printStackTrace();
+               return ;
+           }
+
+
+
        }
     }
 
