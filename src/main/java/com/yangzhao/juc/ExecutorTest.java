@@ -40,13 +40,117 @@ import java.util.concurrent.*;
  自定义线程池参数选择
  对于CPU密集型任务，最大线程数是CPU线程数+1。对于IO密集型任务，尽量多配点，可以是CPU线程数*2，或者CPU线程数/(1-阻塞系数)。 (阻塞系数在0.8-0.9之间)
  **/
+
+
+/**
+ * @Author YangZhao
+ * @Description
+ * @Date 15:12 2020/3/24
+ * @Param
+ * @return
+ *
+ * 线程池异常处理
+ *
+ * execute 无返回结果 会自动抛出异常   1. 可以通过 try catch 2.setUncaughtExceptionHandler
+ * submit 有返回结果  不会自动抛出异常 1.可以通过 try catch 2. future.get() 3
+ *
+ **/
 public class ExecutorTest {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args){
 //        testExecutorFix();
 //        testExecutorSingle();
 //        testCacheExecutor();
-        testThreadPoolExecutor();
+//        testThreadPoolExecutor();
+        testException();
+
+
+    }
+
+    private static void testException() {
+
+        ExecutorService threadPool = Executors.newFixedThreadPool(5);
+//        for (int i = 0; i < 5; i++) {
+//            threadPool.execute(() -> {
+//              try{
+//                  System.out.println("current thread name" + Thread.currentThread().getName());
+//                  Object object = null;
+//                  System.out.print("result## " + object.toString());
+//              }catch (Exception e){
+//                  e.printStackTrace();
+//              }
+//            });
+//        }
+
+
+//        ExecutorService threadPool = Executors.newFixedThreadPool(5);
+//        for (int i = 0; i < 5; i++) {
+//            Future<?> submit = threadPool.submit(() -> {
+//                System.out.println("current thread name" + Thread.currentThread().getName());
+//                Object object = null;
+//                System.out.print("result## " + object.toString());
+//
+//            });
+//
+//            try{
+//                Object o = submit.get();
+//            }catch (Exception e){
+//                e.printStackTrace();
+//            }
+//
+//        }
+
+
+
+//        ExecutorService threadPool2 = Executors.newFixedThreadPool(5);
+//        for (int i = 0; i < 5; i++) {
+//            threadPool2.execute(() -> {
+//                try{
+//                    System.out.println("current thread name" + Thread.currentThread().getName());
+//                    Object object = null;
+//                    System.out.print("result## "+object.toString());
+//                }catch (Exception e){
+//                    e.printStackTrace();
+//                }
+//            });
+//        }
+
+
+
+//        ExecutorService threadPool3 = Executors.newFixedThreadPool(5,(r)->{
+//            Thread t = new Thread(r);
+//            t.setUncaughtExceptionHandler((t1,e)->{
+//                System.out.println(t1.getName()+"发生异常"+e.getMessage());
+//            });
+//            return t;
+//        });
+//        for (int i = 0; i < 5; i++) {
+//            threadPool3.execute(() -> {
+//                System.out.println("current thread name" + Thread.currentThread().getName());
+//                Object object = null;
+//                System.out.print("result## "+object.toString());
+//            });
+//        }
+
+
+        ExtendExecutor extendExecutor = new ExtendExecutor(2, 10,
+                0L, TimeUnit.MILLISECONDS,
+                new LinkedBlockingQueue<Runnable>(1),Executors.defaultThreadFactory(),new ThreadPoolExecutor.AbortPolicy());
+
+
+        for(int i=0;i<5;i++){
+            extendExecutor.submit(()->{
+                Object a = null;
+                System.out.println(a.toString());
+            });
+
+        }
+
+        extendExecutor.shutdown();
+
+
+
+
     }
 
 
@@ -128,6 +232,60 @@ public class ExecutorTest {
             executorService.execute(()->{
                 System.out.println(Thread.currentThread().getName()+"正在执行任务");
             });
+        }
+
+
+    }
+}
+
+class ExtendExecutor extends ThreadPoolExecutor{
+
+
+    public ExtendExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+    }
+
+    public ExtendExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory);
+    }
+
+    public ExtendExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, RejectedExecutionHandler handler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, handler);
+    }
+
+    public ExtendExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
+        super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
+    }
+
+    @Override
+    protected void terminated() {
+        super.terminated();
+        System.out.println(Thread.currentThread().getName()+"线程关闭");
+    }
+
+    @Override
+    protected void beforeExecute(Thread t, Runnable r) {
+        super.beforeExecute(t, r);
+        System.out.println(Thread.currentThread().getName()+"线程执行之前调用");
+    }
+
+    @Override
+    protected void afterExecute(Runnable r, Throwable t) {
+        super.afterExecute(r, t);
+        System.out.println(Thread.currentThread().getName()+ "线程执行之后调用");
+        if(null ==t && r instanceof Future<?>){
+
+            try{
+                Object o = ((Future<?>) r).get();
+            }catch (Exception e){
+                t = e;
+            }
+        }
+
+        if(null != t){
+            System.out.println("afterExecute============");
+            System.out.println(t.getMessage());
+            System.out.println(t.getStackTrace());
         }
 
 
