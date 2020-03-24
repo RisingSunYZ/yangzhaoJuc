@@ -51,8 +51,8 @@ import java.util.concurrent.*;
  *
  * 线程池异常处理
  *
- * execute 无返回结果 会自动抛出异常   1. 可以通过 try catch 2.setUncaughtExceptionHandler
- * submit 有返回结果  不会自动抛出异常 1.可以通过 try catch 2. future.get() 3
+ * execute 无返回结果 会自动抛出异常   1. 可以通过 try catch 2.setUncaughtExceptionHandler  3 重写ThreadPoolExecutor afterExecutor
+ * submit 有返回结果  不会自动抛出异常 1.可以通过 try catch 2. future.get() 3 重写ThreadPoolExecutor afterExecutor
  *
  **/
 public class ExecutorTest {
