@@ -8,13 +8,15 @@ import java.util.concurrent.*;
  * @Since:2020/1/7 9:36
  * @Version:1.1.0
  * @Copyright:Copyright (c) 浙江蘑菇加电子商务有限公司 2018 ~ 2026 版权所有
+ *
+ * 从使用场景上来说，CyclicBarrier是让多个线程互相等待某一事件的发生，然后同时被唤醒。而上文讲的CountDownLatch是让某一线程等待多个线程的状态，然后该线程被唤醒。
  */
 public class CountDownDemo {
 
     public static void main(String[] args) throws Exception{
 //        testCountDown();
-//        testCyclicBarrier();
-        testSemaphore();
+        testCyclicBarrier();
+//        testSemaphore();
     }
 
 
@@ -44,6 +46,7 @@ public class CountDownDemo {
         for(int i=0;i<3;i++){
             new Thread(()->{
                 try {
+                    System.out.println(Thread.currentThread().getName()+"begin ");
                     CyclicBarrier.await();
                     System.out.println(Thread.currentThread().getName()+"run over");
                 } catch (InterruptedException e) {
