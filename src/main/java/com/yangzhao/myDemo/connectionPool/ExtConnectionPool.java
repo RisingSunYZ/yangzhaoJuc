@@ -19,9 +19,9 @@ public final class ExtConnectionPool {
 
     private List<Connection> activeList = new CopyOnWriteArrayList<>();
 
-    private AtomicInteger freeSize = new AtomicInteger(extConnectioonPoolConfiguration.getInitialSize());
+    private AtomicInteger freeSize = new AtomicInteger();
 
-    private List freeList = new CopyOnWriteArrayList<>();
+    private List<Connection> freeList = new CopyOnWriteArrayList<>();
 
     public ExtConnectionPool() throws Exception{
         initPool();
@@ -33,38 +33,58 @@ public final class ExtConnectionPool {
         for(int i=0;i<initialSize;i++){
             Connection getConnection = getConnection();
             freeList.add(getConnection);
+            freeSize.incrementAndGet();
         }
-
-//        for(int i=0;i<freeList.size();i++){
-//            System.out.println(freeList.get(i));
-//        }
-
     };
 
     public synchronized Connection getCon() throws Exception{
-        while(freeSize.get() == extConnectioonPoolConfiguration.getMaxSize()){
-//            throw new Exception("可用链接以超过最大连接数，无法获取,请等待");
-//            TimeUnit.SECONDS.sleep(extConnectioonPoolConfiguration.getTime());
+        while(freeSize.get() == extConnectioonPoolConfiguration.getActiveSize()){
             wait(extConnectioonPoolConfiguration.getTime());
             System.out.println("到达最大连接数"+Thread.currentThread().getName()+"等待"+extConnectioonPoolConfiguration.getTime());
             getCon();
         }
-        Connection remove = (Connection)freeList.remove(0);
-        activeList.add(remove);
-        freeSize.getAndIncrement();
-        notifyAll();
-        return remove;
+
+
+
+        Connection conn = null;
+        if(freeList.size() > 0){
+
+            conn = freeList.remove(0);
+            System.out.println(Thread.currentThread().getName()+"从池中获取连接===============");
+        }else{
+            conn = getConnection();
+            System.out.println(Thread.currentThread().getName()+"新创建链接===============");
+        }
+
+        if(validateConn(conn)){
+            activeList.add(conn);
+            freeSize.incrementAndGet();
+            notifyAll();
+        }else{
+            getCon();
+        }
+        return conn;
+    }
+
+
+    private boolean validateConn(Connection conn) throws Exception{
+        if(null == conn || conn.isClosed()){
+            return false;
+        }
+        return true;
+
     }
 
     public synchronized void release(Connection conn) throws Exception{
-
-        while(freeSize.get() == extConnectioonPoolConfiguration.getInitialSize()){
-            wait(extConnectioonPoolConfiguration.getTime());
-            System.out.println("到达最小连接数"+Thread.currentThread().getName()+"等待"+extConnectioonPoolConfiguration.getTime());
+        if(freeList.size() > extConnectioonPoolConfiguration.getMaxSize()){
+            conn.close();
+            System.out.println(Thread.currentThread().getName()+"关闭连接===============");
+        }else{
+            freeList.add(conn);
+            System.out.println(Thread.currentThread().getName()+"归还池中===============");
         }
         activeList.remove(conn);
-        freeList.add(conn);
-        freeSize.getAndDecrement();
+        freeSize.decrementAndGet();
         notifyAll();
     }
 

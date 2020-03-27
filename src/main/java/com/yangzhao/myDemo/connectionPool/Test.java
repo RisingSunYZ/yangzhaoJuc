@@ -17,17 +17,17 @@ public class Test {
     public static void main(String[] args) throws Exception{
         ExtConnectionPool ExtConnectionPool = new ExtConnectionPool();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
 
-        for(int i=0;i<3;i++){
+        for(int i=0;i<11;i++){
             executorService.submit(()->{
                 try{
                    while(true){
                        Connection con = ExtConnectionPool.getCon();
-                       System.out.println(Thread.currentThread().getName()+"获取连接"+ con);
-                       TimeUnit.SECONDS.sleep(10);
+//                       System.out.println(Thread.currentThread().getName()+"获取连接"+ con);
+                       TimeUnit.SECONDS.sleep(1);
                        ExtConnectionPool.release(con);
-                       System.out.println(Thread.currentThread().getName()+"释放连接"+ con);
+//                       System.out.println(Thread.currentThread().getName()+"释放连接"+ con);
                    }
                 }catch (Exception e){
                     e.printStackTrace();

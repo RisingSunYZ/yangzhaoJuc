@@ -19,9 +19,11 @@ public class ExtConnectioonPoolConfiguration {
 
     private Integer initialSize=5;
 
+    private Integer minSize=1;
+
     private Integer maxSize=10;
 
-    private Integer activeSize;
+    private Integer activeSize=100;
 
     private long time=5;
 
