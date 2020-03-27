@@ -19,22 +19,26 @@ public class Test {
 
         ExecutorService executorService = Executors.newFixedThreadPool(20);
 
-        for(int i=0;i<11;i++){
-            executorService.submit(()->{
-                try{
-                   while(true){
-                       Connection con = ExtConnectionPool.getCon();
+        for(int j=0;j<3;j++){
+            for(int i=0;i<30;i++){
+                executorService.submit(()->{
+                    try{
+//                        while(true){
+                            Connection con = ExtConnectionPool.getCon();
 //                       System.out.println(Thread.currentThread().getName()+"获取连接"+ con);
-                       TimeUnit.SECONDS.sleep(1);
-                       ExtConnectionPool.release(con);
+                            TimeUnit.SECONDS.sleep(1);
+                            ExtConnectionPool.release(con);
 //                       System.out.println(Thread.currentThread().getName()+"释放连接"+ con);
-                   }
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+//                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
 
-            });
+                });
+            }
+
         }
+
 
 
 
