@@ -12,6 +12,23 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Since:2020/3/26 13:52
  * @Version:1.1.0
  * @Copyright:Copyright (c) 浙江蘑菇加电子商务有限公司 2018 ~ 2026 版权所有
+ *
+ * freeSize 控制是否超过最大连接数 100
+ *
+ * 1 和 10  是 池大小边界
+ *
+ * relase 如果小于 10  归还池 ，大于10  close
+ *
+ * getConn 如果 池子没有 new ，有的话 从池子取
+ *
+ * get 有阻塞，release 没有
+ *
+ * release 需要唤醒 get的阻塞
+ *
+ * 也不是完全的生产者消费者
+ *
+ *
+ *
  */
 public final class ExtConnectionPool {
 
