@@ -27,20 +27,26 @@ import java.util.Arrays;
 public class Test {
 
     public static void main(String[] args) throws Exception{
-        testArraysCopy();
+//        testArraysCopy();
 //        testSystemCopy();
-//        testYzArrayList();
+        testYzArrayList();
     }
 
     private static void testYzArrayList() throws Exception{
 
-        YzArrayList<String> yzArrayList = new YzArrayList(3);
+        YzArrayList<String> yzArrayList = new YzArrayList(20);
         yzArrayList.add("a");
+        yzArrayList.add("b");
         yzArrayList.add("c");
         yzArrayList.add("d");
-        yzArrayList.add("e");
 
 
+        ArrayList<String> strings = new ArrayList<>();
+        strings.add("e");
+        strings.add("f");
+//        strings.add("g");
+
+        yzArrayList.addAll(4,strings);
 
         for(int i=0;i<yzArrayList.size();i++){
             System.out.println(yzArrayList.get(i));

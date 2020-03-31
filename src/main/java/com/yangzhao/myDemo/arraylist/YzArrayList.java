@@ -2,6 +2,7 @@ package com.yangzhao.myDemo.arraylist;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * @Description:
@@ -44,27 +45,49 @@ public class YzArrayList<E> implements Serializable {
         elementData = Arrays.copyOf(elementData,newSize);
     }
 
-    private void checkNeedGrow(){
-        if(size+1 > elementData.length){
+    private void checkNeedGrow(int mixSize){
+        if(mixSize > elementData.length){
             if(elementData == emptyData){
                 grow(DEFAULT_SIZE);
             }else{
-                grow(size+1);
+                grow(mixSize);
             }
         }
     }
 
     public void add(E o){
-        checkNeedGrow();
+        checkNeedGrow(size +1);
         elementData[size++] = o;
     }
 
     public void add(int index,E o) throws Exception{
         checkIndex(index);
-        checkNeedGrow();
+        checkNeedGrow(size +1);
         System.arraycopy(elementData,index,elementData,index+1,size-index);
         size++;
         elementData[index] = o;
+    }
+
+    public void addAll(Collection<? extends E> collections) throws Exception{
+        Object[] objects = collections.toArray();
+        if(objects.length > 0){
+            checkNeedGrow(size + objects.length);
+            System.arraycopy(objects,0,elementData,size,objects.length);
+            size += objects.length;
+        }
+    }
+
+    public void addAll(int index,Collection<? extends E> collections) throws Exception{
+        checkAddIndex(index);
+        Object[] objects = collections.toArray();
+        if(objects.length > 0){
+            checkNeedGrow(size + objects.length);
+            if(index < size ){
+                System.arraycopy(elementData,index,elementData,index+objects.length,size-index);
+            }
+            System.arraycopy(objects,0,elementData,index,objects.length);
+            size += objects.length;
+        }
     }
 
     public int indexOf(E o){
@@ -93,6 +116,13 @@ public class YzArrayList<E> implements Serializable {
 
     private void checkIndex(int index) throws Exception{
         if(index >= size){
+            throw new Exception("IndexOutOfBounds");
+        }
+    }
+
+
+    private void checkAddIndex(int index) throws Exception{
+        if(index > size){
             throw new Exception("IndexOutOfBounds");
         }
     }
