@@ -20,13 +20,16 @@ import java.util.Arrays;
  * int temp = elementa * 1.5 大于  最小扩容量？ lementa * 1.5 ： 最小扩容量
  * Arrays.copy （elementa，temp）
  *
+ *
+ * 最好在 add 大量元素之前用 ensureCapacity 方法，以减少增量从新分配的次数
+ *
  */
 public class Test {
 
     public static void main(String[] args) throws Exception{
-//        testArraysCopy();
+        testArraysCopy();
 //        testSystemCopy();
-        testYzArrayList();
+//        testYzArrayList();
     }
 
     private static void testYzArrayList() throws Exception{
@@ -58,8 +61,8 @@ public class Test {
     }
 
     static void testArraysCopy(){
-        int arr[] = {1,2,3,4,5};
-        int[] ints = Arrays.copyOf(arr, 3);
+        Number arr[] = {2.3};
+        Double[] ints = Arrays.copyOf(arr, 3,Double[].class);
         for(int i=0;i<ints.length;i++){
             System.out.println(ints[i]);
         }
