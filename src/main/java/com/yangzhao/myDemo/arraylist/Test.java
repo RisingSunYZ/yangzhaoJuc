@@ -53,6 +53,7 @@ public class Test {
 
         ArrayList<Object> objects = new ArrayList<>();
         objects.remove(1);
+        objects.addAll(3,new ArrayList<>());
         int arr[] = {1,2,3,4,5};
         System.arraycopy(arr,0,arr,2,2);
         for(int i=0;i<arr.length;i++){
