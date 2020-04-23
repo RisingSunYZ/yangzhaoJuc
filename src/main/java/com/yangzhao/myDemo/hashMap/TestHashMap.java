@@ -11,40 +11,49 @@ public class TestHashMap {
 
     public static void main(String[] args) {
 
-
+//
         YzHashMap<String,String> YzHashMap = new YzHashMap();
 
         YzHashMap.put(null,"1");
+
         YzHashMap.put("18","1");
-        YzHashMap.put("27","1");
-        YzHashMap.put("36","1");
-        YzHashMap.put("45","1");
+        YzHashMap.put("27","2");
+        YzHashMap.put("36","3");
+        YzHashMap.put("45","4");
 
-        YzHashMap.put("19","1");
-        YzHashMap.put("28","1");
-        YzHashMap.put("37","1");
-        YzHashMap.put("46","1");
-
-
-        YzHashMap.put("2","1");
-        YzHashMap.put("59","1");
-        YzHashMap.put("68","1");
-        YzHashMap.put("77","1");
-
-        YzHashMap.put("8","1");
-        YzHashMap.put("33","1");
-        YzHashMap.put("5","1");
-        YzHashMap.put("666","1");
+        YzHashMap.put("19","5");
+        YzHashMap.put("28","6");
+        YzHashMap.put("37","7");
+        YzHashMap.put("46","8");
 
 
-        YzHashMap.put("46","222");
 
-        YzHashMap.put("8","222");
+//        YzHashMap.put("2","9");
+//        YzHashMap.put("59","10");
+//        YzHashMap.put("68","11");
+//        YzHashMap.put("77","12");
+//
+//        YzHashMap.put("8","13");
+//        YzHashMap.put("33","14");
+//        YzHashMap.put("5","15");
+//        YzHashMap.put("666","16");
 
-        YzHashMap.put(null,"222");
 
-        System.out.println(YzHashMap.size());
-        YzHashMap.forEachYzMap();
+
+        String remove = YzHashMap.remove("77");
+        String remove1 = YzHashMap.remove("77");
+        String remove2 = YzHashMap.remove("37");
+        String remove3 = YzHashMap.remove("27");
+        System.out.println(remove);
+        System.out.println(remove1);
+        System.out.println(remove2);
+        System.out.println(remove3);
+//
+//        YzHashMap.forEachYzMap();
+
+
+//        System.out.println(YzHashMap.size());
+//        YzHashMap.forEachYzMap();
 
 
 //        Map<Integer, List<String>> map = new HashMap<>();

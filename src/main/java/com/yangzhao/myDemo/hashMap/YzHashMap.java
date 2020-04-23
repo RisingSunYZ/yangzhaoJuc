@@ -5,6 +5,10 @@ package com.yangzhao.myDemo.hashMap;
  * @Author:YangZhao
  * @Since:2020/4/23 13:25
  * @Version:1.1.0
+ *
+ *
+ * 只是简单实现Java7 数组+链表结构 采用头插法，实现动态扩容
+ * 具体 下标的算法，包括扰动函数，大小是2额幂 ，负载因子过大过小问题 这里不详细实现，
  * @Copyright:Copyright (c) 浙江蘑菇加电子商务有限公司 2018 ~ 2026 版权所有
  */
 public class YzHashMap<K,V> {
@@ -104,12 +108,43 @@ public class YzHashMap<K,V> {
     }
 
 
-    public int getIndex(K k,int length){
+    private int getIndex(K k,int length){
         return k.hashCode() % (length-1);
     }
 
     public int size(){
         return size;
+    }
+
+    public V get(K k){
+        if(null == k){
+            Node<K,V> temp0 = table[0];
+            if(null == temp0){
+                return null;
+            }
+            while(temp0!=null){
+                if(null == temp0.k){
+                    return temp0.v;
+                }
+                temp0 = temp0.next;
+            }
+
+        }else{
+            int index = getIndex(k,table.length);
+            Node<K,V> tempIndex = table[index];
+
+            if(null == tempIndex){
+                return null;
+            }
+            while(tempIndex!=null){
+                if(k == tempIndex.k && k.equals(tempIndex.k)){
+                    return tempIndex.v;
+                }
+                tempIndex = tempIndex.next;
+            }
+
+        }
+        return null;
     }
 
     public V put(K k,V v){
@@ -171,6 +206,55 @@ public class YzHashMap<K,V> {
                 }
             }
 
+        }
+        return null;
+    }
+
+
+    public V remove(K k){
+        if(null == k){
+            Node<K,V> temp0 = table[0];
+            Node<K,V> tempPrev = null;
+            if(null == table[0].k){
+                V v = table[0].v;
+                table[0] = table[0].next;
+                return v;
+            }else{
+                while(null != temp0){
+                    if(null == temp0.k){
+                        V v = temp0.v;
+                        tempPrev.next = temp0.next;
+                        temp0 = null;
+                        return v;
+                    }
+                    tempPrev = temp0;
+                    temp0 = temp0.next;
+                }
+            }
+        }else{
+            int index = getIndex(k,table.length);
+            Node<K,V> temp0 = table[index];
+            Node<K,V> tempPrev = null;
+            if(table[index] == null){
+                return null;
+            }
+
+            if(k == table[index].k && k.equals(table[index].k)){
+                V v = table[index].v;
+                table[index] = table[index].next;
+                return v;
+            }else{
+                while(null != temp0){
+                    if(k == temp0.k && k.equals(temp0.k)){
+                        V v = temp0.v;
+                        tempPrev.next = temp0.next;
+                        temp0 = null;
+                        return v;
+                    }
+                    tempPrev = temp0;
+                    temp0 = temp0.next;
+                }
+            }
         }
         return null;
     }
