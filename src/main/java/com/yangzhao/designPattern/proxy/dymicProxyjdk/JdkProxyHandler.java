@@ -1,4 +1,4 @@
-package com.yangzhao.java8.proxy.dymicProxyjdk;
+package com.yangzhao.designPattern.proxy.dymicProxyjdk;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

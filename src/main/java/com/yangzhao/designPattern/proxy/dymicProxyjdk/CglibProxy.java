@@ -1,4 +1,4 @@
-package com.yangzhao.java8.proxy.dymicProxyjdk;
+package com.yangzhao.designPattern.proxy.dymicProxyjdk;
 
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;

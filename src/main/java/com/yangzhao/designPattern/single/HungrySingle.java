@@ -1,4 +1,4 @@
-package com.yangzhao.juc;
+package com.yangzhao.designPattern.single;
 
 /**
  * @Description:
@@ -9,13 +9,13 @@ package com.yangzhao.juc;
  */
 public class HungrySingle {
 
-    private static HungrySingle HungrySingle = new HungrySingle();
+    private static com.yangzhao.designPattern.single.HungrySingle HungrySingle = new HungrySingle();
 
     private HungrySingle(){
         System.out.println("============comein===================");
     }
 
-    public static HungrySingle getSingle(){
+    public static com.yangzhao.designPattern.single.HungrySingle getSingle(){
         return HungrySingle;
     }
 

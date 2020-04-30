@@ -1,6 +1,6 @@
-package com.yangzhao.java8.proxy.dymicProxyjdk;
+package com.yangzhao.designPattern.proxy.dymicProxyjdk;
 
-import com.yangzhao.java8.proxy.staticproxy.*;
+import com.yangzhao.designPattern.proxy.staticproxy.*;
 
 import java.lang.reflect.Proxy;
 

@@ -1,4 +1,4 @@
-package com.yangzhao.juc;
+package com.yangzhao.designPattern.builder;
 
 /**
  * @Description:
@@ -29,7 +29,7 @@ public class UserBuilder {
                 '}';
     }
 
-    static class InnerUser{
+    public static class InnerUser{
         private String name;
         private String adress;
 

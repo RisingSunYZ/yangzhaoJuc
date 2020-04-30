@@ -1,9 +1,9 @@
 package com.yangzhao.jvm.oom;
 
-import com.yangzhao.java8.proxy.dymicProxyjdk.CglibProxy;
-import com.yangzhao.java8.proxy.dymicProxyjdk.JdkProxyHandler;
-import com.yangzhao.java8.proxy.staticproxy.UserManager;
-import com.yangzhao.java8.proxy.staticproxy.UserManagerImpl;
+import com.yangzhao.designPattern.proxy.dymicProxyjdk.CglibProxy;
+import com.yangzhao.designPattern.proxy.dymicProxyjdk.JdkProxyHandler;
+import com.yangzhao.designPattern.proxy.staticproxy.UserManager;
+import com.yangzhao.designPattern.proxy.staticproxy.UserManagerImpl;
 import net.sf.cglib.proxy.Enhancer;
 
 import java.lang.reflect.Proxy;

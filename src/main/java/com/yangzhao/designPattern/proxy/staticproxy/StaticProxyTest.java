@@ -1,4 +1,4 @@
-package com.yangzhao.java8.proxy.staticproxy;
+package com.yangzhao.designPattern.proxy.staticproxy;
 
 /**
  * @Description:

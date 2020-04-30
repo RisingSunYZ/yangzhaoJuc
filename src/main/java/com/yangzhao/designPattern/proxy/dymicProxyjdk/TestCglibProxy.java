@@ -1,6 +1,6 @@
-package com.yangzhao.java8.proxy.dymicProxyjdk;
+package com.yangzhao.designPattern.proxy.dymicProxyjdk;
 
-import com.yangzhao.java8.proxy.staticproxy.AnimalManagerImpl;
+import com.yangzhao.designPattern.proxy.staticproxy.AnimalManagerImpl;
 import net.sf.cglib.proxy.Enhancer;
 
 /**

@@ -1,4 +1,4 @@
-package com.yangzhao.juc;
+package com.yangzhao.designPattern.single;
 
 /**
  * @Description: 单例模式 双重检索
@@ -15,7 +15,7 @@ public class LazySingle {
 
     }
 
-    public static  LazySingle getSingle(){ //synchronized 加在方法上，浪费资源 锁等待
+    public static LazySingle getSingle(){ //synchronized 加在方法上，浪费资源 锁等待
         if(null == lazySingle){ //处理锁等待
             synchronized(LazySingle.class){
                 if(null == lazySingle){ //不加这个 多个线程进来会创建多个
