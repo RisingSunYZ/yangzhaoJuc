@@ -1,9 +1,8 @@
-package com;
+package com.yangzhao.juc;
 
-import com.yangzhao.juc.MyThread3;
+import com.yangzhao.designPattern.single.InnerClassSingle;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 /**
  * Hello world!
@@ -42,14 +41,20 @@ public class App
 //            },i+"").start();
 //        }
 
+                for(int i=0;i<1000;i++){
+            new Thread(()->{
+                InnerClassSingle single = InnerClassSingle.getInstance();
+            },i+"").start();
+        }
 
-        FutureTask<String> task = new FutureTask<>(new MyThread3());
-        Thread thread3 = new Thread(task);
-        thread3.start();
 
-        System.out.println(task.get());//最好将FutureTask的get操作放在最后，因为get操作会阻塞其他线程
-
-        System.out.println("=================1===================");
+//        FutureTask<String> task = new FutureTask<>(new MyThread3());
+//        Thread thread3 = new Thread(task);
+//        thread3.start();
+//
+//        System.out.println(task.get());//最好将FutureTask的get操作放在最后，因为get操作会阻塞其他线程
+//
+//        System.out.println("=================1===================");
 
 
 

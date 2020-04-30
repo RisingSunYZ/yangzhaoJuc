@@ -13,8 +13,12 @@ public class InnerClassSingle {
         System.out.println("InnerClassSingle......................");
     }
 
+    public static InnerClassSingle getInstance(){
+        return InnerClass.innerClassSingle;
+    }
 
-    static class InnerClass{
-        private InnerClassSingle innerClassSingle = new InnerClassSingle();
+
+    private static class InnerClass{
+        private static InnerClassSingle innerClassSingle = new InnerClassSingle();
     }
 }
