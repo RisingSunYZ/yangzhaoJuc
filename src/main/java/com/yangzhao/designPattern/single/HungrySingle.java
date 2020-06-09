@@ -1,7 +1,7 @@
 package com.yangzhao.designPattern.single;
 
 /**
- * @Description:
+ * @Description:静态属性 饿汉
  * @Author:YangZhao
  * @Since:2020/1/4 15:55
  * @Version:1.1.0

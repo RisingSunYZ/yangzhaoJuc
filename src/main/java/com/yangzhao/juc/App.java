@@ -1,6 +1,6 @@
 package com.yangzhao.juc;
 
-import com.yangzhao.designPattern.single.InnerClassSingle;
+import com.yangzhao.designPattern.single.EnumSingle;
 
 import java.util.concurrent.ExecutionException;
 
@@ -43,7 +43,8 @@ public class App
 
                 for(int i=0;i<1000;i++){
             new Thread(()->{
-                InnerClassSingle single = InnerClassSingle.getInstance();
+                EnumSingle single = EnumSingle.getSingle();
+                System.out.println(single.getStu());
             },i+"").start();
         }
 
