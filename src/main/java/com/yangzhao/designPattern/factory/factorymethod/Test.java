@@ -11,13 +11,20 @@ public class Test {
 
     public static void main(String[] args) throws Exception{
 
-        Animal animal = AnimalFactory.getAnimal(Dog.class);
+//        Animal animal = AnimalFactory.getAnimal(Dog.class);
+//        animal.say();
+//
+//        Animal animal1 = AnimalFactory.getAnimal(Cat.class);
+//        animal1.say();
+
+
+        Factory factory = new MyCatFactory();
+        Animal animal = factory.getAnimal(Cat.class);
         animal.say();
 
-        Animal animal1 = AnimalFactory.getAnimal(Cat.class);
+        Factory factory1 = new MyDogFactory();
+        Animal animal1 = factory1.getAnimal(Dog.class);
         animal1.say();
-
-
 //         AnimalFactory<Animal> AnimalFactory = new AnimalFactory<Animal>();
 //        Animal animal = AnimalFactory.getAnimal(Dog.class);
 //        animal.say();
