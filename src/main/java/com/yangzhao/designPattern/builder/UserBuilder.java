@@ -29,7 +29,7 @@ public class UserBuilder {
                 '}';
     }
 
-    public static class InnerUser{
+    public static final class InnerUser{
         private String name;
         private String adress;
 

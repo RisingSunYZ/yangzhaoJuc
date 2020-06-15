@@ -2,7 +2,7 @@ package com.yangzhao.designPattern.single;
 
 /**
  * @Description:静态属性 饿汉
- * @Author:YangZhao
+ * @Author:YangZhao Runtime
  * @Since:2020/1/4 15:55
  * @Version:1.1.0
  * @Copyright:Copyright (c) 浙江蘑菇加电子商务有限公司 2018 ~ 2026 版权所有
