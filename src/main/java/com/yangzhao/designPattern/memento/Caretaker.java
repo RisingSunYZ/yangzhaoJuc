@@ -1,8 +1,5 @@
 package com.yangzhao.designPattern.memento;
 
-import java.util.Queue;
-import java.util.Stack;
-
 /**
  * @Description:
  * @Author:YangZhao
