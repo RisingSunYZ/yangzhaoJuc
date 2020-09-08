@@ -21,7 +21,11 @@ public class Test {
 
         sat.getInstance3(123);
         sat.getInstance4("123");
-       // SayType.<Double>getInstance("123");报错
+        SayType.<Double>getInstance(11.d);//报错
+
+
+        SayType.getInstance666().setData(123);
+        //SayType.<String>getInstance666().setData(123);//报错
         SayType.getInstance("123");//其实与泛型类 指定的类型无关
 
         sat.getInstance5(Integer.class);

@@ -15,6 +15,12 @@ public class SayType<T> implements ISayType<T>{
         return t;
     }
 
+    //泛型方法 其实与泛型类没啥关系
+    public static <T> Temp<T> getInstance666(){
+        Temp<T> remp = new Temp<>();
+        return remp.setCode(1).setMsg("1");
+    }
+
     //泛型方法
     public static <U>U getInstance2(U t){
         return t;
