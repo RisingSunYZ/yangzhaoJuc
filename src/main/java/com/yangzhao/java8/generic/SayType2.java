@@ -19,4 +19,9 @@ public class SayType2 implements ISayType<String>{
     public void setT(String s) {
 
     }
+
+
+    public static <E> E test2(E e){
+        return e;
+    }
 }

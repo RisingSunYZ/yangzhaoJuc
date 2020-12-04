@@ -21,8 +21,14 @@ public class Test {
 
         sat.getInstance3(123);
         sat.getInstance4("123");
+        //要使用显示声明泛型
         SayType.<Double>getInstance(11.d);//报错
 
+        //类型推断
+        int i = SayType2.test2(1);
+
+//显示声明泛型
+        //SayType2.<String>test2(1);
 
         SayType.getInstance666().setData(123);
         //SayType.<String>getInstance666().setData(123);//报错

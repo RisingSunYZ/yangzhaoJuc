@@ -15,6 +15,13 @@ public class SayType<T> implements ISayType<T>{
         return t;
     }
 
+//静态方法不能使用类上的泛型
+//    public static T test(T t){
+//
+//    }
+
+
+
     //泛型方法 其实与泛型类没啥关系
     public static <T> Temp<T> getInstance666(){
         Temp<T> remp = new Temp<>();
